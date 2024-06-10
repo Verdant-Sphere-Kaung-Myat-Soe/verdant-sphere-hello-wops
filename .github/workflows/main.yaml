@@ -38,13 +38,9 @@ jobs:
         run: |
           cp .env.ci .env
 
-      - name: Start The App
-        run: |
-          npm start
-
-      - name: Build as Docker image
-        run: |
-          docker build -t hello-wops-node-app-kms .
+      # - name: Start The App
+      #   run: |
+      #     npm start
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
