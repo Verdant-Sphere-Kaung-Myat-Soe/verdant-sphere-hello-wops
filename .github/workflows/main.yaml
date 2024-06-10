@@ -38,9 +38,9 @@ jobs:
         run: |
           cp .env.ci .env
 
-      - name: Build the Application
+      - name: Start The App
         run: |
-          npm
+          npm start
 
       - name: Build as Docker image
         run: |
