@@ -54,7 +54,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          repository: kaungmyatsoedev/wops-node
-          tags: latest
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          tags: kaungmyatsoedev/wops-node:latest
