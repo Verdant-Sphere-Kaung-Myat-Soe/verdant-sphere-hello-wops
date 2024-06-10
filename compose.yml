@@ -1,0 +1,48 @@
+services:
+  mongodb:
+    container_name: mongodb_service
+    image: "mongo:6.0.16-rc0"
+    restart: always
+    # ports:
+    #   - "27017:27017"
+    volumes:
+      - mongo_db:/data/db
+    networks:
+      - node-network
+
+  redis:
+    container_name: redis_service
+    image: "redis:6.2.6"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis:/data
+    # ports:
+    #   - "6379:6379"
+    networks:
+      - node-network
+
+  app:
+    container_name: hello-wops
+    build:
+      context: .
+    environment:
+      MONGO_HOST: mongodb_service
+      MONGO_PORT: 27017
+      REDIS_HOST: redis_service
+      REDIS_PORT: 6379
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - host_mydata:/var/opt/data
+    networks:
+      - node-network
+
+volumes:
+  mongo_db: {}
+  redis:
+  host_mydata:
+
+networks:
+  node-network:
+    driver: bridge
