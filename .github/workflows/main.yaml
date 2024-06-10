@@ -11,21 +11,21 @@ jobs:
     name: "Build Node App"
     runs-on: ubuntu-latest
     services:
-      mysql:
-        image: mysql:8.0
+      mongo:
+        image: mongo:6.0.16-rc0
         ports:
-          - 3306:3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: false
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_USERNAME: root
-          MYSQL_DATABASE: test
+          - 27017:27017
+
+      redis:
+        image: redis:6.2.6
+        ports:
+          - 6379:6379
 
     steps:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,7 +40,7 @@ jobs:
 
       - name: Build the Application
         run: |
-          npm 
+          npm
 
       - name: Build as Docker image
         run: |
@@ -55,6 +55,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          context: .
+          file: ./Dockerfile
           push: true
           tags: kaungmyatsoedev/wops-node:latest
-  
