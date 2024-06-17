@@ -54,4 +54,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: kaungmyatsoedev/wops-node:latest
+          tags: kaungmyatsoedev/wops-node:${{ github.sha }}
