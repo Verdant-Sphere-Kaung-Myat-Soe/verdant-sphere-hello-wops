@@ -1,10 +1,16 @@
-FROM node:latest as build
+FROM node:20.14-bullseye as build
 
 WORKDIR /app
 
-COPY . .
+COPY package.json package-lock.json /app/
 
 RUN npm install
+
+COPY /src /app/src
+
+COPY /public /app/public
+
+COPY /logs /app/logs
 
 FROM node:20.14.0-alpine
 
